@@ -16,6 +16,9 @@ export const AppDataSource = new DataSource({
     database: DB_NAME,
     logging: false,
     entities: [User, Order, OrderDetail, Product, Category, Role],
+    ssl: {
+        rejectUnauthorized: false
+      },
     synchronize: true,
     dropSchema: RESTART_SCHEMA,
 })

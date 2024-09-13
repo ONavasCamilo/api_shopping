@@ -37,6 +37,11 @@ export class Product {
       })
     imgUrl: string;
 
+    @Column({
+      default: true,
+    })
+    isActive: boolean;
+
     @ManyToOne(() => Category, (category) => category.products)
     @JoinColumn({ name: "category_id" })
     category: Category;

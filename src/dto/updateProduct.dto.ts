@@ -27,6 +27,9 @@ class UpdateProductDto {
 
   @IsEmpty()
   imgUrl?: string;
+
+  @IsEmpty()
+  isActive?: boolean;
 }
 
 export default UpdateProductDto;

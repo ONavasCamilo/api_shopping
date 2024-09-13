@@ -1,5 +1,6 @@
 import {
   IsDecimal,
+    IsEmpty,
     IsInt,
     IsString,
     Max,
@@ -25,6 +26,9 @@ import {
   
     @IsString()
     category: string;
+
+    @IsEmpty()
+    isActive?: boolean;
   }
   
   export default CreateProductDto;

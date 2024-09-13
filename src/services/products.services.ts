@@ -7,6 +7,7 @@ import toStream from "buffer-to-stream";
 
 export const getAllProductsService = async () => {
   const products = await ProductModel.find({
+    where: { isActive: true },
     relations: {
       category: true,
     },
@@ -16,7 +17,7 @@ export const getAllProductsService = async () => {
 
 export const getOneProductService = async (id: string) => {
   const product = await ProductModel.findOne({
-    where: { id },
+    where: { id, isActive: true },
     relations: {
       category: true,
     },
@@ -29,7 +30,7 @@ export const updateProductService = async (
   updateProductBody: UpdateProductDto
 ) => {
   const existProduct = await ProductModel.findOne({
-    where: { id },
+    where: { id, isActive: true },
     relations: {
       category: true,
     },
@@ -37,7 +38,7 @@ export const updateProductService = async (
   if (!existProduct) throw new Error("Id de producto inexistente");
   await ProductModel.update(id, updateProductBody);
   const updateProduct = await ProductModel.findOne({
-    where: { id },
+    where: { id, isActive: true },
     relations: {
       category: true,
     },
@@ -45,12 +46,16 @@ export const updateProductService = async (
   return updateProduct;
 };
 
-export const createProductService = async (product: CreateProductDto, file: Express.Multer.File) => {
+export const createProductService = async (
+  product: CreateProductDto,
+  file: Express.Multer.File
+) => {
   const categories = await CategoryModel.find();
   const category = categories.find(
     (category) => category.name === product.category
   );
   if (!category) throw new Error("Categoria no encontrada");
+
   const response: UploadApiResponse = await new Promise((resolve, reject) => {
     const upload = cloudinary.uploader.upload_stream(
       { resource_type: "auto", folder: "ecommerce_shopping" },
@@ -64,13 +69,19 @@ export const createProductService = async (product: CreateProductDto, file: Expr
     );
     toStream(file.buffer).pipe(upload);
   });
-  const newProduct = ProductModel.create({ ...product, category, imgUrl: response.secure_url });
+  const newProduct = ProductModel.create({
+    ...product,
+    category,
+    imgUrl: response.secure_url,
+  });
   await ProductModel.save(newProduct);
   return newProduct;
 };
 
 export const deleteProductService = async (id: string) => {
-  const existProduct = await ProductModel.findOneBy({ id });
+  const existProduct = await ProductModel.findOne({
+    where: { id, isActive: true },
+  });
   if (!existProduct) throw new Error("Id de producto inexistente");
   if (
     existProduct.imgUrl &&
@@ -81,6 +92,9 @@ export const deleteProductService = async (id: string) => {
       await cloudinary.uploader.destroy(`ecommerce_shopping/${publicId}`);
     }
   }
-  await ProductModel.delete(existProduct);
-  return existProduct;
+  existProduct.isActive = false;
+  await ProductModel.save(existProduct);
+  return {
+    message: 'Usuario eliminado correctamente'
+  }
 };

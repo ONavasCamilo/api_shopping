@@ -12,6 +12,7 @@ export const getAllUsersService = async (params: FiltersUsersDto) => {
     where: {
       name: name || undefined,
       email: email || undefined,
+      isActive: true,
     },
     relations: {
       role: true,
@@ -24,7 +25,7 @@ export const getAllUsersService = async (params: FiltersUsersDto) => {
 
 export const getOneUserService = async (id: string) => {
   return await UserModel.findOne({
-    where: { id },
+    where: { id, isActive: true },
     relations: ["role", "orders"],
   });
 };
@@ -33,7 +34,7 @@ export const updateUserServices = async (
   id: string,
   updateBody: UpdateUserDto
 ) => {
-  const existUser = await UserModel.findOneBy({ id });
+  const existUser = await UserModel.findOne({ where: { id, isActive: true } });
   if (!existUser) throw new Error("Usuario inexistente");
   await UserModel.update(id, updateBody);
   const updateUser = await UserModel.findOne({
@@ -41,7 +42,7 @@ export const updateUserServices = async (
     relations: {
       role: true,
       orders: true,
-    }
+    },
   });
   return updateUser;
 };
@@ -51,8 +52,8 @@ export const updatePasswordUserService = async (
   updatePasswordBody: updatePasswordUserDto
 ) => {
   const existUser = await UserModel.findOne({
-    where: { id },
-    select: ["id", "password", "address", "email", "name", "phone"],
+    where: { id, isActive: true },
+    select: ["id", "password"],
   });
   if (!existUser) throw new Error("Usuario inexistente");
 
@@ -66,17 +67,20 @@ export const updatePasswordUserService = async (
   const hashedPassword = await hashPassword(updatePasswordBody.password);
   existUser.password = hashedPassword;
   await UserModel.save(existUser);
-  const updateUser = await UserModel.findOneBy({ id });
-  return updateUser;
+  return {
+    message: "Contraseña de usuario actualizada",
+  };
 };
 
 export const deleteUserService = async (id: string) => {
   const existUser = await UserModel.findOne({
-    where: { id },
+    where: { id, isActive: true },
     relations: ["orders"],
   });
   if (!existUser) throw new Error("Usuario inexistente");
-  await OrderModel.delete({ user: existUser });
-  await UserModel.delete(existUser);
-  return existUser;
+  existUser.isActive = false;
+  await UserModel.save(existUser);
+  return {
+    message: "Usuario eliminado correctamente",
+  };
 };

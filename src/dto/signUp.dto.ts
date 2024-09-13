@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsEmpty,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -38,6 +39,9 @@ class SignUpDto {
 
   @IsNotEmpty()
   confirmpassword: string;
+
+  @IsEmpty()
+  isActive?: boolean;
 }
 
 export default SignUpDto;

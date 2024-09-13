@@ -31,6 +31,9 @@ class UpdateUserDto {
 
   @IsEmpty()
   password?: string;
+
+  @IsEmpty()
+  isActive?: boolean;
 }
 
 export default UpdateUserDto;

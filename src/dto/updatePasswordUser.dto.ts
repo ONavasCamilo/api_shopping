@@ -29,6 +29,9 @@ class updatePasswordUserDto {
 
   @IsEmpty()
   phone?: string;
+
+  @IsEmpty()
+  isActive?: boolean;
 }
 
 export default updatePasswordUserDto;

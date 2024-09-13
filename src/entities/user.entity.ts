@@ -40,6 +40,11 @@ export class User {
     })
     password: string;
 
+    @Column({
+        default: true,
+    })
+    isActive: boolean;
+
     @OneToMany(() => Order, (order) => order.user)
     @JoinColumn({ name: "order_id" })
     orders: Order[]

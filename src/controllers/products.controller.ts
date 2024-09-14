@@ -4,6 +4,7 @@ import {
   deleteProductService,
   getAllProductsService,
   getOneProductService,
+  updateImageService,
   updateProductService,
 } from "../services/products.services";
 
@@ -37,9 +38,7 @@ export const updateProductController = async (req: Request, res: Response) => {
   const { name, price, stock } = req.body;
   try {
     if (!name && !price && !stock)
-      throw new Error(
-        "Ingresa name, price o stock para actualizar"
-      );
+      throw new Error("Ingresa name, price o stock para actualizar");
     const updateProduct = await updateProductService(id, {
       name,
       price,
@@ -61,18 +60,36 @@ export const postCreateProductController = async (
   const { name, price, stock, category } = req.body;
   const { file } = req;
   try {
-    if (!file) throw new Error("Archivo sin enviar")
-    const newProduct = await createProductService({
-      name,
-      price,
-      stock,
-      category,
-    }, file);
+    if (!file) throw new Error("Archivo sin enviar");
+    const newProduct = await createProductService(
+      {
+        name,
+        price,
+        stock,
+        category,
+      },
+      file
+    );
     res.status(202).json(newProduct);
   } catch (err) {
     console.log("ERROR:", err);
     if (err instanceof Error) {
       res.status(400).send({ statusCode: 400, message: err.message });
+    }
+  }
+};
+
+export const putUpdateImageController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { file } = req;
+  try {
+    if (!file) throw new Error("Archivo sin enviar");
+    const response = await updateImageService(id, file);
+    res.status(202).json(response);
+  } catch (error) {
+    console.log("ERROR:", error);
+    if (error instanceof Error) {
+      res.status(400).send({ statusCode: 400, message: error.message });
     }
   }
 };

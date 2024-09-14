@@ -24,10 +24,12 @@ export const getAllUsersService = async (params: FiltersUsersDto) => {
 };
 
 export const getOneUserService = async (id: string) => {
-  return await UserModel.findOne({
+  const userById = await UserModel.findOne({
     where: { id, isActive: true },
     relations: ["role", "orders"],
   });
+  if (!userById) throw new Error("Usuario inexistente");
+  return userById;
 };
 
 export const updateUserServices = async (

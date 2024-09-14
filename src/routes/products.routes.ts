@@ -4,6 +4,7 @@ import {
   getAllProductsController,
   getOneProductsController,
   postCreateProductController,
+  putUpdateImageController,
   updateProductController,
 } from "../controllers/products.controller";
 import updateProductDtoMiddleware from "../middlewares/updateProductDto.middleware";
@@ -29,6 +30,13 @@ productsRouter.post(
   uploadMulter.single("file"),
   [CreateProductDtoMiddleware, verifyToken, isAdmin],
   postCreateProductController
+);
+
+productsRouter.put(
+  "/update-image/:id",
+  uploadMulter.single("file"),
+  [verifyToken, isAdmin],
+  putUpdateImageController
 );
 
 productsRouter.delete(

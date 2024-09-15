@@ -8,12 +8,12 @@ export const signUpService = async (user: SignUpDto) => {
   if (existEmail) throw new Error("Email ya registrado");
 
   const passwordHash = await hashPassword(user.password);
-  const newParticipant = UserModel.create({
+  const newUser = UserModel.create({
     ...user,
     password: passwordHash,
   });
-  await RoleModel.asignRole(newParticipant);
-  await UserModel.save(newParticipant);
+  await RoleModel.asignRole(newUser);
+  await UserModel.save(newUser);
 
   const dbUser = await UserModel.findOne({
     where: { email: user.email },
@@ -29,7 +29,7 @@ export const signUpService = async (user: SignUpDto) => {
 export const signInService = async (email: string, password: string) => {
   const existUser = await UserModel.findOne({
     where: { email: email },
-    select: ["id", "password", "name", "email", "address", "phone"],
+    select: ["id", "password", "name", "email", "lastname"],
     relations: {
       role: true,
       orders: true,

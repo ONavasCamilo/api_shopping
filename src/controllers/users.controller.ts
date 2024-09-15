@@ -38,15 +38,14 @@ export const getOneUserController = async (req: Request, res: Response) => {
 
 export const updateUserController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, email, address, phone } = req.body;
+  const { name, email, lastname } = req.body;
   try {
-    if (!name && !email && !address && !phone)
+    if (!name && !email && !lastname)
       throw new Error("Ingresa name, email, address o phone a actualizar");
     const updateUser = await updateUserServices(id, {
       name,
       email,
-      address,
-      phone,
+      lastname
     });
     res.status(200).json(updateUser);
   } catch (err) {

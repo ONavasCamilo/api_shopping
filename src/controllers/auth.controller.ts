@@ -4,15 +4,14 @@ import { signInService, signUpService } from "../services/auth.services";
 import { JWT_SECRET } from "../config/env.config";
 
 export const signUpController = async (req: Request, res: Response) => {
-  const { name, email, address, phone, password, confirmpassword } = req.body;
+  const { name, email, address, phone, password } = req.body;
   try {
     const newUser = await signUpService({
       name,
       email,
       address,
       phone,
-      password,
-      confirmpassword
+      password
     });
     const token = jwt.sign({ id: newUser.id, role: newUser.role }, JWT_SECRET, { expiresIn: "1d" });
     return res.status(202).json({

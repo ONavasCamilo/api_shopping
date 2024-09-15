@@ -37,9 +37,6 @@ class SignUpDto {
   @Matches(/^(?=.*[a-zA-Z])(?=.*[0-9])/)
   password: string;
 
-  @IsNotEmpty()
-  confirmpassword: string;
-
   @IsEmpty()
   isActive?: boolean;
 }

@@ -7,7 +7,7 @@ const signUpDtoMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, email, address, phone, password, confirmpassword } = req.body;
+  const { name, email, address, phone, password } = req.body;
 
   const valid = new SignUpDto();
   valid.name = name;
@@ -15,27 +15,8 @@ const signUpDtoMiddleware = (
   valid.address = address;
   valid.phone = phone;
   valid.password = password;
-  valid.confirmpassword = confirmpassword;
 
   validate(valid).then((err) => {
-    if (valid.password !== valid.confirmpassword) {
-      const newError: ValidationError = {
-        target: {
-          name,
-          email,
-          address,
-          phone,
-          password,
-          confirmpassword,
-        },
-        value: password,
-        property: "password",
-        constraints: {
-          matchPassword: "La contraseña y la confirmación no coinciden",
-        },
-      };
-      err.push(newError);
-    }
     if (err.length > 0) {
       return res.status(400).json({ error: err });
     } else {

@@ -2,7 +2,6 @@ import {
   IsEmail,
   IsEmpty,
   IsNotEmpty,
-  IsNumber,
   IsString,
   Matches,
   MaxLength,
@@ -23,12 +22,8 @@ class SignUpDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
-  @MaxLength(80)
-  address: string;
-
-  @IsNotEmpty()
-  @IsString()
-  phone: string;
+  @MaxLength(50)
+  lastname: string;
 
   @IsNotEmpty()
   @IsString()

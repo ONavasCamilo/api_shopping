@@ -25,12 +25,11 @@ export class User {
     email: string;
 
     @Column({
-        type: "text",
+        type: "varchar",
+        length: 50,
+        nullable: false,
     })
-    address: string;
-
-    @Column()
-    phone: string;
+    lastname: string;
 
     @Column({
         type: "varchar",

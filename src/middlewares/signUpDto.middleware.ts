@@ -7,13 +7,12 @@ const signUpDtoMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, email, address, phone, password } = req.body;
+  const { name, email, lastname, password } = req.body;
 
   const valid = new SignUpDto();
   valid.name = name;
   valid.email = email;
-  valid.address = address;
-  valid.phone = phone;
+  valid.lastname = lastname;
   valid.password = password;
 
   validate(valid).then((err) => {

@@ -25,10 +25,7 @@ class updatePasswordUserDto {
   email?: string;
 
   @IsEmpty()
-  address?: string;
-
-  @IsEmpty()
-  phone?: string;
+  lastname?: string;
 
   @IsEmpty()
   isActive?: boolean;

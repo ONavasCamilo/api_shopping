@@ -22,12 +22,8 @@ class UpdateUserDto {
   @IsOptional()
   @IsString()
   @MinLength(3)
-  @MaxLength(80)
-  address?: string;
-
-  @IsOptional()
-  @IsString()
-  phone?: string;
+  @MaxLength(50)
+  lastname?: string;
 
   @IsEmpty()
   password?: string;

@@ -6,6 +6,7 @@ import { OrderDetail } from "../entities/orderDetail.entity";
 import { Product } from "../entities/product.entity";
 import { Category } from "../entities/category.entity";
 import { Role } from "../entities/role.entity";
+import { DetailUser } from "../entities/detailsUser.entity";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
     password: DB_PASSWORD,
     database: DB_NAME,
     logging: false,
-    entities: [User, Order, OrderDetail, Product, Category, Role],
+    entities: [User, Order, OrderDetail, Product, Category, Role, DetailUser],
     ssl: {
         rejectUnauthorized: false
       },

@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Order } from "./order.entity";
 import { Role } from "./role.entity";
+import { DetailUser } from "./detailsUser.entity";
 
 @Entity({
     name: "users",
@@ -52,4 +53,8 @@ export class User {
         cascade: true,
     })
     role: Role;
+
+    @OneToOne(() => DetailUser, { cascade: true })
+    @JoinColumn()
+    detailUser: DetailUser;
 }

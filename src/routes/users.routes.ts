@@ -3,6 +3,8 @@ import {
   deleteUserController,
   getAllUsersController,
   getOneUserController,
+  postAddDetailsUserController,
+  updateDetailsUserController,
   updatePasswordUserController,
   updateUserController,
 } from "../controllers/users.controller";
@@ -17,10 +19,30 @@ usersRouter.get("/list", [verifyToken, isAdmin], getAllUsersController);
 
 usersRouter.get("/one/:id", [verifyToken], getOneUserController);
 
-usersRouter.put("/update/:id", [updateUserDtoMiddleware, verifyToken], updateUserController);
+usersRouter.post(
+  "/addDetailsUser/:id",
+  [verifyToken],
+  postAddDetailsUserController
+);
 
-usersRouter.put("/update/password/:id", [updatePasswordUserDtoMiddleware, verifyToken], updatePasswordUserController);
+usersRouter.put(
+  "/update/detailsUser/:id",
+  [verifyToken],
+  updateDetailsUserController
+);
 
-usersRouter.delete("/delete/:id", [verifyToken] , deleteUserController);
+usersRouter.put(
+  "/update/:id",
+  [updateUserDtoMiddleware, verifyToken],
+  updateUserController
+);
+
+usersRouter.put(
+  "/update/password/:id",
+  [updatePasswordUserDtoMiddleware, verifyToken],
+  updatePasswordUserController
+);
+
+usersRouter.delete("/delete/:id", [verifyToken], deleteUserController);
 
 export default usersRouter;

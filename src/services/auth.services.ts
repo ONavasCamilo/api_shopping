@@ -20,6 +20,7 @@ export const signUpService = async (user: SignUpDto) => {
     relations: {
       role: true,
       orders: true,
+      detailUser: true,
     },
   });
   if (!dbUser) throw new Error("Error obteniendo usuario");
@@ -33,6 +34,7 @@ export const signInService = async (email: string, password: string) => {
     relations: {
       role: true,
       orders: true,
+      detailUser: true,
     },
   });
   if (!existUser) throw new Error("Credenciales incorrectas");

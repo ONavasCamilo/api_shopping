@@ -145,9 +145,10 @@ export const updatePasswordUserController = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const { password, confirmpassword } = req.body;
+  const { oldPassword, password, confirmpassword } = req.body;
   try {
     const updatePasswordUser = await updatePasswordUserService(id, {
+      oldPassword,
       password,
       confirmpassword,
     });

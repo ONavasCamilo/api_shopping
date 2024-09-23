@@ -9,6 +9,9 @@ import {
 
 class updatePasswordUserDto {
   @IsNotEmpty()
+  oldPassword: string;
+
+  @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @MaxLength(20)

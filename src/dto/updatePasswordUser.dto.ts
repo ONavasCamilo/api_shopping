@@ -9,7 +9,7 @@ import {
 
 class updatePasswordUserDto {
   @IsNotEmpty()
-  oldPassword: string;
+  oldpassword: string;
 
   @IsNotEmpty()
   @IsString()

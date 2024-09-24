@@ -4,7 +4,6 @@ import updatePasswordUserDto from "../dto/updatePasswordUser.dto";
 import UpdateUserDto from "../dto/updateUser.dto";
 import { DetailUser } from "../entities/detailsUser.entity";
 import DetailsUserModel from "../repositories/detailsUser.repository";
-import OrderModel from "../repositories/order.repository";
 import UserModel from "../repositories/user.repository";
 import { comparePassword, hashPassword } from "../utils/passwordManager.utils";
 
@@ -131,6 +130,7 @@ export const updatePasswordUserService = async (
   existUser.password = hashedPassword;
   await UserModel.save(existUser);
   return {
+    status: 200,
     message: "Contraseña de usuario actualizada",
   };
 };

@@ -115,7 +115,7 @@ export const updatePasswordUserService = async (
   if (!existUser) throw new Error("Usuario inexistente");
 
   const oldSamePassword = await comparePassword(
-    updatePasswordBody.oldPassword,
+    updatePasswordBody.oldpassword,
     existUser.password
   )
   if(!oldSamePassword) throw new Error("Contraseña anterior no coincide")

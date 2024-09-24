@@ -7,7 +7,7 @@ const updatePasswordUserDtoMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const { password, confirmpassword, name, email, lastname } = req.body;
+  const { oldpassword, password, confirmpassword, name, email, lastname } = req.body;
 
   const valid = new updatePasswordUserDto();
   valid.password = password;
@@ -15,6 +15,7 @@ const updatePasswordUserDtoMiddleware = (
   valid.name = name;
   valid.email = email;
   valid.lastname = lastname;
+  valid.oldpassword = oldpassword
 
   validate(valid).then((err) => {
     if (valid.password !== valid.confirmpassword) {

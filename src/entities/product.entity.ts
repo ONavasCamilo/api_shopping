@@ -12,7 +12,7 @@ export class Product {
     @Column({
         type: 'varchar',
         length: 50,
-        unique: true,
+        unique: false,
         nullable: false,
       })
     name: string;

@@ -11,4 +11,10 @@ export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
+export const DEVELOP_DB_HOST = process.env.DEVELOP_DB_HOST;
+export const DEVELOP_DB_PORT = process.env.DEVELOP_DB_PORT;
+export const DEVELOP_DB_USERNAME = process.env.DEVELOP_DB_USERNAME;
+export const DEVELOP_DB_PASSWORD = process.env.DEVELOP_DB_PASSWORD;
+export const DEVELOP_DB_NAME = process.env.DEVELOP_DB_NAME;
+
 export const RESTART_SCHEMA = false;

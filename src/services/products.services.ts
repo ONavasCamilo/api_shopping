@@ -5,13 +5,16 @@ import ProductModel from "../repositories/product.repository";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import toStream from "buffer-to-stream";
 
-export const getAllProductsService = async () => {
+export const getAllProductsService = async (category: any) => {
   const products = await ProductModel.find({
-    where: { isActive: true },
+    where: { isActive: true, },
     relations: {
       category: true,
     },
   });
+  if (category) {
+    return products.filter((producto) => producto.category.name === category)
+  }
   return products;
 };
 
@@ -78,7 +81,10 @@ export const createProductService = async (
   return newProduct;
 };
 
-export const updateImageService = async (id: string, file: Express.Multer.File) => {
+export const updateImageService = async (
+  id: string,
+  file: Express.Multer.File
+) => {
   const existProduct = await ProductModel.findOne({
     where: { id, isActive: true },
   });
@@ -115,7 +121,7 @@ export const updateImageService = async (id: string, file: Express.Multer.File) 
     },
   });
   return foundProduct;
-}
+};
 
 export const deleteProductService = async (id: string) => {
   const existProduct = await ProductModel.findOne({
@@ -134,6 +140,6 @@ export const deleteProductService = async (id: string) => {
   existProduct.isActive = false;
   await ProductModel.save(existProduct);
   return {
-    message: 'Usuario eliminado correctamente'
-  }
+    message: "Usuario eliminado correctamente",
+  };
 };

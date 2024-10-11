@@ -9,8 +9,9 @@ import {
 } from "../services/products.services";
 
 export const getAllProductsController = async (req: Request, res: Response) => {
+  const { category } = req.query;
   try {
-    const products = await getAllProductsService();
+    const products = await getAllProductsService(category);
     res.status(200).json(products);
   } catch (err) {
     console.log("ERROR:", err);

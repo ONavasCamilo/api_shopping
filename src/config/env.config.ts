@@ -17,4 +17,4 @@ export const DEVELOP_DB_USERNAME = process.env.DEVELOP_DB_USERNAME;
 export const DEVELOP_DB_PASSWORD = process.env.DEVELOP_DB_PASSWORD;
 export const DEVELOP_DB_NAME = process.env.DEVELOP_DB_NAME;
 
-export const RESTART_SCHEMA = false;
+export const RESTART_SCHEMA = true;

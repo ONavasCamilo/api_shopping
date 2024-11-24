@@ -9,7 +9,8 @@ import {
 } from "../services/products.services";
 
 export const getAllProductsController = async (req: Request, res: Response) => {
-  const { category } = req.query;
+  const category =
+    typeof req.query.category === "string" ? req.query.category : undefined;
   try {
     const products = await getAllProductsService(category);
     res.status(200).json(products);

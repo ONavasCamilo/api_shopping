@@ -5,16 +5,13 @@ import ProductModel from "../repositories/product.repository";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import toStream from "buffer-to-stream";
 
-export const getAllProductsService = async (category: any) => {
+export const getAllProductsService = async (category?: string) => {
   const products = await ProductModel.find({
-    where: { isActive: true, },
+    where: { isActive: true, category: { name: category} },
     relations: {
       category: true,
     },
   });
-  if (category) {
-    return products.filter((producto) => producto.category.name === category)
-  }
   return products;
 };
 

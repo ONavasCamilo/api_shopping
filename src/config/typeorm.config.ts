@@ -19,6 +19,7 @@ import { Product } from "../entities/product.entity";
 import { Category } from "../entities/category.entity";
 import { Role } from "../entities/role.entity";
 import { DetailUser } from "../entities/detailsUser.entity";
+import { GroupProducts } from "../entities/groupProduct.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -42,7 +43,7 @@ export const AppDataSource = new DataSource({
   database: DEVELOP_DB_NAME,
 
   logging: false,
-  entities: [User, Order, OrderDetail, Product, Category, Role, DetailUser],
+  entities: [User, Order, OrderDetail, Product, Category, Role, DetailUser, GroupProducts],
   synchronize: true,
   dropSchema: RESTART_SCHEMA,
 });

@@ -10,6 +10,7 @@ export const getAllProductsService = async (category?: string) => {
     where: { isActive: true, category: { name: category} },
     relations: {
       category: true,
+      groupProducts: true,
     },
   });
   return products;
@@ -22,8 +23,18 @@ export const getOneProductService = async (id: string) => {
       category: true,
     },
   });
-  return product;
-};
+  if (!product) throw new Error("Id de producto inexistente")
+  const groupProductsByName = await ProductModel.find({
+    where: { name: product.name },
+    relations: {
+      category: true,
+    }
+  })
+  return {
+    product,
+    groupProductsByName
+  };
+};  
 
 export const updateProductService = async (
   id: string,

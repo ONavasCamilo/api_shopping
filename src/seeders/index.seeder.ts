@@ -1,5 +1,4 @@
 import { seedCategories } from "./category.seeder";
-import { seedGroupProducts } from "./groupProducts.seeder";
 import { seedProducts } from "./products.seeder";
 import { seedRoles } from "./role.seeder";
 
@@ -8,7 +7,6 @@ async function initSeeders() {
   await Promise.all([
     seedRoles(),
     seedCategories(),
-    seedGroupProducts()
   ]);
   const products = await seedProducts();
   await Promise.all(products);

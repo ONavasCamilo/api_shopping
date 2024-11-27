@@ -10,7 +10,6 @@ export const getAllProductsService = async (category?: string) => {
     where: { isActive: true, category: { name: category} },
     relations: {
       category: true,
-      groupProducts: true,
     },
   });
   return products;

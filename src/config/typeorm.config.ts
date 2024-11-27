@@ -19,31 +19,30 @@ import { Product } from "../entities/product.entity";
 import { Category } from "../entities/category.entity";
 import { Role } from "../entities/role.entity";
 import { DetailUser } from "../entities/detailsUser.entity";
-import { GroupProducts } from "../entities/groupProduct.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
 
   //! PRODUCCIÓN
-  // host: DB_HOST,
-  // port: DB_PORT as unknown as number,
-  // username: DB_USERNAME,
-  // password: DB_PASSWORD,
-  // database: DB_NAME,
+  host: DB_HOST,
+  port: DB_PORT as unknown as number,
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_NAME,
 
-  // ssl: {
-  //   rejectUnauthorized: false,
-  // },
+  ssl: {
+    rejectUnauthorized: false,
+  },
 
   //! DESARROLLO
-  host: DEVELOP_DB_HOST,
-  port: DEVELOP_DB_PORT as unknown as number,
-  username: DEVELOP_DB_USERNAME,
-  password: DEVELOP_DB_PASSWORD,
-  database: DEVELOP_DB_NAME,
+  // host: DEVELOP_DB_HOST,
+  // port: DEVELOP_DB_PORT as unknown as number,
+  // username: DEVELOP_DB_USERNAME,
+  // password: DEVELOP_DB_PASSWORD,
+  // database: DEVELOP_DB_NAME,
 
   logging: false,
-  entities: [User, Order, OrderDetail, Product, Category, Role, DetailUser, GroupProducts],
+  entities: [User, Order, OrderDetail, Product, Category, Role, DetailUser],
   synchronize: true,
   dropSchema: RESTART_SCHEMA,
 });

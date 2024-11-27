@@ -8,7 +8,6 @@ import {
 } from "typeorm";
 import { OrderDetail } from "./orderDetail.entity";
 import { Category } from "./category.entity";
-import { GroupProducts } from "./groupProduct.entity";
 
 @Entity({
   name: "products",
@@ -53,10 +52,6 @@ export class Product {
   @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn({ name: "category_id" })
   category: Category;
-
-  @ManyToOne(() => GroupProducts, (groupProducts) => groupProducts.products)
-  @JoinColumn({ name: "groupProduct_id" })
-  groupProducts: GroupProducts;
 
   @ManyToMany(() => OrderDetail, (orderDetails) => orderDetails.products)
   orderDetails: OrderDetail;

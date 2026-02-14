@@ -7,9 +7,9 @@ import toStream from "buffer-to-stream";
 
 export const getAllProductsService = async (category?: string) => {
   const products = await ProductModel.find({
-    where: { isActive: true, category: { name: category} },
+    where: { isActive: true, category: category ? { name: category} : undefined },
     relations: {
-      category: true,
+      // category: true,
     },
   });
   return products;
